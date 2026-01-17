@@ -1,0 +1,1925 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FreeReads | Download Free eBooks</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Merriweather:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        /* ===== CORE STYLES ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary: #4361ee;
+            --primary-dark: #3a56d4;
+            --secondary: #7209b7;
+            --accent: #f72585;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --gray: #6c757d;
+            --light-gray: #e9ecef;
+            --success: #4cc9f0;
+            --border-radius: 8px;
+            --box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            --transition: all 0.3s ease;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background-color: #f9f9f9;
+        }
+        
+        h1, h2, h3, h4, h5 {
+            font-family: 'Merriweather', serif;
+            font-weight: 700;
+            line-height: 1.3;
+            margin-bottom: 1rem;
+        }
+        
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 28px;
+            background-color: var(--primary);
+            color: white;
+            border-radius: var(--border-radius);
+            font-weight: 500;
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+            text-align: center;
+        }
+        
+        .btn:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: var(--box-shadow);
+        }
+        
+        .btn-secondary {
+            background-color: var(--secondary);
+        }
+        
+        .btn-secondary:hover {
+            background-color: #5a08a0;
+        }
+        
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+        
+        .btn-outline:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .btn-small {
+            padding: 8px 16px;
+            font-size: 0.9rem;
+        }
+        
+        /* Header */
+        header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .logo i {
+            color: var(--primary);
+            font-size: 1.8rem;
+        }
+        
+        .logo h1 {
+            font-size: 1.8rem;
+            margin-bottom: 0;
+            color: var(--dark);
+        }
+        
+        .logo span {
+            color: var(--primary);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+        
+        nav a {
+            font-weight: 500;
+            color: var(--dark);
+            transition: var(--transition);
+            padding: 5px 0;
+            position: relative;
+        }
+        
+        nav a:hover {
+            color: var(--primary);
+        }
+        
+        nav a.active {
+            color: var(--primary);
+        }
+        
+        nav a.active::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 3px;
+            background-color: var(--primary);
+            bottom: -5px;
+            left: 0;
+            border-radius: 3px;
+        }
+        
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .search-box {
+            position: relative;
+        }
+        
+        .search-box input {
+            padding: 10px 15px 10px 40px;
+            border: 1px solid var(--light-gray);
+            border-radius: var(--border-radius);
+            width: 200px;
+            font-family: 'Poppins', sans-serif;
+            transition: var(--transition);
+        }
+        
+        .search-box input:focus {
+            outline: none;
+            border-color: var(--primary);
+            width: 250px;
+        }
+        
+        .search-box i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gray);
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--dark);
+            cursor: pointer;
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #f5f7ff 0%, #eef1ff 100%);
+            padding: 80px 0;
+            text-align: center;
+        }
+        
+        .hero h2 {
+            font-size: 2.8rem;
+            margin-bottom: 20px;
+            color: var(--dark);
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--gray);
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+        
+        .hero-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 30px;
+        }
+        
+        /* Section Styles */
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+            position: relative;
+        }
+        
+        .section-title h2 {
+            font-size: 2.2rem;
+            display: inline-block;
+            padding-bottom: 10px;
+        }
+        
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            width: 70px;
+            height: 4px;
+            background-color: var(--primary);
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+        
+        .section-subtitle {
+            text-align: center;
+            color: var(--gray);
+            max-width: 700px;
+            margin: 0 auto 50px;
+        }
+        
+        section {
+            padding: 80px 0;
+        }
+        
+        /* Grids */
+        .featured-grid, .categories-grid, .ebooks-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+        }
+        
+        /* Ebook Card */
+        .ebook-card {
+            background-color: white;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--box-shadow);
+            transition: var(--transition);
+            height: 100%;
+            cursor: pointer;
+        }
+        
+        .ebook-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .ebook-cover {
+            height: 250px;
+            overflow: hidden;
+        }
+        
+        .ebook-card:hover .ebook-cover img {
+            transform: scale(1.05);
+        }
+        
+        .ebook-info {
+            padding: 20px;
+        }
+        
+        .ebook-title {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            height: 3.6rem;
+            overflow: hidden;
+        }
+        
+        .ebook-author {
+            color: var(--gray);
+            font-size: 0.95rem;
+            margin-bottom: 15px;
+        }
+        
+        .ebook-meta {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+        }
+        
+        .ebook-category {
+            background-color: var(--light-gray);
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+        }
+        
+        .ebook-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .rating {
+            color: #ffc107;
+        }
+        
+        /* Category Card */
+        .category-card {
+            background-color: white;
+            border-radius: var(--border-radius);
+            padding: 30px 20px;
+            text-align: center;
+            box-shadow: var(--box-shadow);
+            transition: var(--transition);
+            cursor: pointer;
+        }
+        
+        .category-card:hover {
+            background-color: var(--primary);
+            color: white;
+            transform: translateY(-5px);
+        }
+        
+        .category-card i {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            color: var(--primary);
+        }
+        
+        .category-card:hover i {
+            color: white;
+        }
+        
+        .category-card h3 {
+            font-size: 1.3rem;
+        }
+        
+        /* Stats Section */
+        .stats {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            text-align: center;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+        }
+        
+        .stat-item i {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            opacity: 0.9;
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        
+        .stat-text {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        /* How It Works */
+        .steps {
+            display: flex;
+            justify-content: space-between;
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+        }
+        
+        .step {
+            text-align: center;
+            width: 30%;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .step-number {
+            width: 60px;
+            height: 60px;
+            background-color: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin: 0 auto 20px;
+        }
+        
+        .step h3 {
+            margin-bottom: 10px;
+        }
+        
+        .step p {
+            color: var(--gray);
+        }
+        
+        .steps::before {
+            content: '';
+            position: absolute;
+            width: 80%;
+            height: 3px;
+            background-color: var(--light-gray);
+            top: 30px;
+            left: 10%;
+            z-index: 0;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 70px 0 20px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-logo h2 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+        }
+        
+        .footer-logo span {
+            color: var(--primary);
+        }
+        
+        .footer-logo p {
+            color: #adb5bd;
+        }
+        
+        .footer-links h3, .footer-newsletter h3 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-links h3::after, .footer-newsletter h3::after {
+            content: '';
+            position: absolute;
+            width: 40px;
+            height: 3px;
+            background-color: var(--primary);
+            bottom: 0;
+            left: 0;
+        }
+        
+        .footer-links ul {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: #adb5bd;
+            transition: var(--transition);
+        }
+        
+        .footer-links a:hover {
+            color: white;
+            padding-left: 5px;
+        }
+        
+        .footer-newsletter p {
+            color: #adb5bd;
+            margin-bottom: 20px;
+        }
+        
+        .newsletter-form {
+            display: flex;
+        }
+        
+        .newsletter-form input {
+            flex-grow: 1;
+            padding: 12px 15px;
+            border: none;
+            border-radius: var(--border-radius) 0 0 var(--border-radius);
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .newsletter-form button {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 0 var(--border-radius) var(--border-radius) 0;
+            padding: 0 20px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .newsletter-form button:hover {
+            background-color: var(--primary-dark);
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            background-color: #343a40;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+        
+        .social-links a:hover {
+            background-color: var(--primary);
+            transform: translateY(-3px);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #343a40;
+            color: #adb5bd;
+            font-size: 0.9rem;
+        }
+        
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .modal-content {
+            background-color: white;
+            border-radius: var(--border-radius);
+            width: 100%;
+            max-width: 800px;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+        }
+        
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--dark);
+            cursor: pointer;
+            z-index: 10;
+        }
+        
+        .modal-body {
+            padding: 40px;
+        }
+        
+        .modal-ebook-details {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 30px;
+        }
+        
+        .modal-cover img {
+            width: 100%;
+            border-radius: var(--border-radius);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .modal-download-btn {
+            display: block;
+            width: 100%;
+            margin-top: 20px;
+            text-align: center;
+        }
+        
+        /* ===== EMAIL LOGIN SYSTEM STYLES ===== */
+        .user-badge {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 15px;
+            background: var(--light);
+            border-radius: 50px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .user-badge:hover {
+            background: #e9ecef;
+        }
+        
+        .user-badge i {
+            color: var(--primary);
+        }
+        
+        .user-badge span {
+            font-weight: 500;
+            font-size: 0.9rem;
+            max-width: 150px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        
+        /* Email Modal */
+        .email-modal-content {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+        
+        .email-modal h3 {
+            margin-bottom: 15px;
+            color: var(--dark);
+        }
+        
+        .email-modal p {
+            color: var(--gray);
+            margin-bottom: 25px;
+        }
+        
+        .email-input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid var(--light-gray);
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+            margin-bottom: 20px;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .email-input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+        
+        .email-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        .email-buttons .btn {
+            flex: 1;
+        }
+        
+        /* My Orders Section */
+        .orders-section {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: var(--border-radius);
+            padding: 30px;
+            margin-top: 30px;
+        }
+        
+        .order-item {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 20px;
+            margin-bottom: 15px;
+            box-shadow: var(--box-shadow);
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .order-cover {
+            width: 60px;
+            height: 80px;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+        
+        .order-info {
+            flex-grow: 1;
+        }
+        
+        .order-title {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .order-meta {
+            display: flex;
+            gap: 15px;
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+        
+        .order-date {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .no-orders {
+            text-align: center;
+            padding: 50px 20px;
+            color: var(--gray);
+        }
+        
+        .no-orders i {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: var(--light-gray);
+        }
+        
+        /* Toast Notification */
+        .toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--primary);
+            color: white;
+            padding: 15px 20px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            z-index: 3000;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transform: translateX(150%);
+            transition: transform 0.3s ease;
+        }
+        
+        .toast.show {
+            transform: translateX(0);
+        }
+        
+        .toast-success {
+            background: #28a745;
+        }
+        
+        .toast-info {
+            background: var(--primary);
+        }
+        
+        .toast-error {
+            background: #dc3545;
+        }
+        
+        .toast-close {
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            font-size: 1.2rem;
+            margin-left: 10px;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .hero h2 {
+                font-size: 2.3rem;
+            }
+            
+            .modal-ebook-details {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            nav {
+                position: fixed;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background-color: white;
+                padding: 20px;
+                box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
+                transform: translateY(-100%);
+                opacity: 0;
+                transition: var(--transition);
+                visibility: hidden;
+            }
+            
+            nav.active {
+                transform: translateY(0);
+                opacity: 1;
+                visibility: visible;
+            }
+            
+            nav ul {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .search-box input {
+                width: 180px;
+            }
+            
+            .search-box input:focus {
+                width: 180px;
+            }
+            
+            .hero h2 {
+                font-size: 2rem;
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .steps {
+                flex-direction: column;
+                gap: 40px;
+            }
+            
+            .step {
+                width: 100%;
+            }
+            
+            .steps::before {
+                width: 3px;
+                height: 80%;
+                left: 50%;
+                transform: translateX(-50%);
+            }
+            
+            .order-item {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .order-meta {
+                flex-direction: column;
+                gap: 5px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .hero {
+                padding: 60px 0;
+            }
+            
+            section {
+                padding: 60px 0;
+            }
+            
+            .hero h2 {
+                font-size: 1.8rem;
+            }
+            
+            .section-title h2 {
+                font-size: 1.8rem;
+            }
+            
+            .modal-body {
+                padding: 20px;
+            }
+            
+            .email-buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <i class="fas fa-book-open"></i>
+                <h1>Free<span>Reads</span></h1>
+            </div>
+            
+            <button class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <nav>
+                <ul>
+                    <li><a href="#home" class="active">Home</a></li>
+                    <li><a href="#featured">Featured</a></li>
+                    <li><a href="#categories">Categories</a></li>
+                    <li><a href="#how-it-works">How It Works</a></li>
+                    <li><a href="#all-ebooks">All eBooks</a></li>
+                    <li><a href="#my-orders" id="myOrdersLink" style="display:none;">
+                        <i class="fas fa-shopping-bag"></i> My Orders
+                    </a></li>
+                </ul>
+            </nav>
+            
+            <div class="header-actions">
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="searchInput" placeholder="Search eBooks...">
+                </div>
+                
+                <!-- User Badge (shown when logged in) -->
+                <div id="userBadge" class="user-badge" style="display:none;">
+                    <i class="fas fa-user-circle"></i>
+                    <span id="userEmail"></span>
+                    <button id="logoutBtn" style="background:none; border:none; color:var(--gray); cursor:pointer;">
+                        <i class="fas fa-sign-out-alt"></i>
+                    </button>
+                </div>
+                
+                <!-- Sign In Button (shown when not logged in) -->
+                <button id="signInBtn" class="btn btn-small">
+                    <i class="fas fa-user"></i> Sign In
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <h2>Discover Thousands of Free eBooks</h2>
+            <p>Download high-quality eBooks for free in various categories including fiction, non-fiction, academic, and more. No sign-up required for most books!</p>
+            <div class="hero-buttons">
+                <a href="#featured" class="btn">Browse eBooks</a>
+                <a href="#categories" class="btn btn-outline">Explore Categories</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured eBooks -->
+    <section id="featured">
+        <div class="container">
+            <div class="section-title">
+                <h2>Featured eBooks</h2>
+            </div>
+            <p class="section-subtitle">Handpicked selection of popular free eBooks across different genres</p>
+            
+            <div class="featured-grid" id="featuredEbooks">
+                <!-- Featured ebooks loaded via JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Categories -->
+    <section id="categories" style="background-color: #f8f9fa;">
+        <div class="container">
+            <div class="section-title">
+                <h2>Browse by Category</h2>
+            </div>
+            <p class="section-subtitle">Find eBooks in your favorite genres and subjects</p>
+            
+            <div class="categories-grid">
+                <div class="category-card" data-category="fiction">
+                    <i class="fas fa-book-open"></i>
+                    <h3>Fiction</h3>
+                    <p>Novels, short stories, and more</p>
+                </div>
+                <div class="category-card" data-category="nonfiction">
+                    <i class="fas fa-globe"></i>
+                    <h3>Non-Fiction</h3>
+                    <p>Biographies, history, science</p>
+                </div>
+                <div class="category-card" data-category="academic">
+                    <i class="fas fa-graduation-cap"></i>
+                    <h3>Academic</h3>
+                    <p>Textbooks, research papers</p>
+                </div>
+                <div class="category-card" data-category="business">
+                    <i class="fas fa-chart-line"></i>
+                    <h3>Business</h3>
+                    <p>Finance, marketing, management</p>
+                </div>
+                <div class="category-card" data-category="technology">
+                    <i class="fas fa-laptop-code"></i>
+                    <h3>Technology</h3>
+                    <p>Programming, AI, cybersecurity</p>
+                </div>
+                <div class="category-card" data-category="selfhelp">
+                    <i class="fas fa-heart"></i>
+                    <h3>Self-Help</h3>
+                    <p>Personal development, motivation</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <i class="fas fa-book"></i>
+                    <div class="stat-number">10,284+</div>
+                    <div class="stat-text">Free eBooks</div>
+                </div>
+                <div class="stat-item">
+                    <i class="fas fa-users"></i>
+                    <div class="stat-number">256,430+</div>
+                    <div class="stat-text">Happy Readers</div>
+                </div>
+                <div class="stat-item">
+                    <i class="fas fa-download"></i>
+                    <div class="stat-number">1.2M+</div>
+                    <div class="stat-text">Downloads</div>
+                </div>
+                <div class="stat-item">
+                    <i class="fas fa-star"></i>
+                    <div class="stat-number">4.8/5</div>
+                    <div class="stat-text">Average Rating</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section id="how-it-works">
+        <div class="container">
+            <div class="section-title">
+                <h2>How It Works</h2>
+            </div>
+            <p class="section-subtitle">Get free eBooks in just three simple steps</p>
+            
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>Browse & Select</h3>
+                    <p>Explore our vast collection of free eBooks by category or use the search function.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>Preview & Download</h3>
+                    <p>Click on any eBook to see details, read a preview, and download in your preferred format.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>Read & Enjoy</h3>
+                    <p>Open the eBook on any device and enjoy reading completely free!</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- All eBooks Section -->
+    <section id="all-ebooks">
+        <div class="container">
+            <div class="section-title">
+                <h2>All eBooks</h2>
+            </div>
+            <p class="section-subtitle">Browse our complete collection of free eBooks</p>
+            
+            <div class="ebooks-grid" id="allEbooks">
+                <!-- All ebooks loaded via JavaScript -->
+            </div>
+            
+            <div style="text-align: center; margin-top: 40px;">
+                <button class="btn btn-secondary" id="loadMore">Load More eBooks</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- My Orders Section -->
+    <section id="my-orders" style="display:none; padding: 80px 0;">
+        <div class="container">
+            <div class="section-title">
+                <h2>My Orders</h2>
+            </div>
+            <p class="section-subtitle">All your downloaded eBooks in one place</p>
+            
+            <div class="orders-section">
+                <div id="ordersList">
+                    <!-- Orders will be displayed here -->
+                </div>
+                
+                <div id="noOrders" class="no-orders">
+                    <i class="fas fa-box-open"></i>
+                    <h3>No orders yet</h3>
+                    <p>Download some eBooks to see them here!</p>
+                    <a href="#all-ebooks" class="btn" style="margin-top: 20px;">
+                        Browse eBooks
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h2>Free<span>Reads</span></h2>
+                    <p>Your gateway to thousands of free eBooks. We believe knowledge should be accessible to everyone.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-links">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#featured">Featured eBooks</a></li>
+                        <li><a href="#categories">Categories</a></li>
+                        <li><a href="#all-ebooks">All eBooks</a></li>
+                        <li><a href="#my-orders" id="footerOrdersLink" style="display:none;">My Orders</a></li>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-newsletter">
+                    <h3>Stay Updated</h3>
+                    <p>Get notified about new free eBooks.</p>
+                    <div class="newsletter-form">
+                        <input type="email" id="newsletterEmail" placeholder="Your email address">
+                        <button type="button" id="subscribeBtn">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2023 FreeReads. All eBooks are free and legal to download.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- eBook Details Modal -->
+    <div class="modal" id="ebookModal">
+        <div class="modal-content">
+            <button class="modal-close" id="modalClose">&times;</button>
+            <div class="modal-body" id="modalBody">
+                <!-- Modal content loaded via JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Email Modal -->
+    <div class="modal email-modal" id="emailModal">
+        <div class="email-modal-content">
+            <h3>Track Your Downloads</h3>
+            <p>Enter your email to track all your downloaded eBooks. No password needed!</p>
+            
+            <input type="email" id="emailInput" class="email-input" placeholder="your@email.com">
+            
+            <div class="email-buttons">
+                <button id="saveEmailBtn" class="btn">
+                    <i class="fas fa-check"></i> Continue
+                </button>
+                <button id="cancelEmailBtn" class="btn btn-outline">
+                    Cancel
+                </button>
+            </div>
+            
+            <p style="margin-top: 20px; font-size: 0.85rem; color: #666;">
+                <i class="fas fa-lock"></i> We only store your email locally in your browser.
+            </p>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast">
+        <span id="toastMessage"></span>
+        <button class="toast-close" id="toastClose">&times;</button>
+    </div>
+
+    <script>
+        // ===== EBOOK DATA =====
+        const ebooks = [
+            {
+                id: 1,
+                title: "The Art of Creative Thinking",
+                author: "John Adair",
+                category: "selfhelp",
+                description: "A guide to developing your creative potential in business and in life. This book provides practical techniques and exercises to help you think more creatively and solve problems more effectively.",
+                pages: 215,
+                rating: 4.5,
+                downloads: 12450,
+                format: "PDF, EPUB, MOBI",
+                size: "2.4 MB",
+                coverColor: "#4361ee",
+                year: 2020
+            },
+            {
+                id: 2,
+                title: "Silent Echoes",
+                author: "Elena Rodriguez",
+                category: "fiction",
+                description: "A gripping mystery novel about a journalist who returns to her hometown to uncover the truth behind her sister's disappearance, only to find herself entangled in a web of secrets.",
+                pages: 342,
+                rating: 4.7,
+                downloads: 18920,
+                format: "PDF, EPUB",
+                size: "3.1 MB",
+                coverColor: "#7209b7",
+                year: 2021
+            },
+            {
+                id: 3,
+                title: "Introduction to Machine Learning",
+                author: "Dr. Michael Chen",
+                category: "technology",
+                description: "A comprehensive introduction to machine learning concepts, algorithms, and applications. Perfect for beginners and those looking to expand their knowledge in AI.",
+                pages: 418,
+                rating: 4.8,
+                downloads: 25630,
+                format: "PDF",
+                size: "5.2 MB",
+                coverColor: "#4cc9f0",
+                year: 2022
+            },
+            {
+                id: 4,
+                title: "The History of Ancient Civilizations",
+                author: "Prof. Richard Evans",
+                category: "nonfiction",
+                description: "Explore the rise and fall of ancient civilizations from Mesopotamia to Rome. This book offers fresh insights based on the latest archaeological discoveries.",
+                pages: 512,
+                rating: 4.6,
+                downloads: 15480,
+                format: "PDF, EPUB",
+                size: "4.7 MB",
+                coverColor: "#f72585",
+                year: 2019
+            },
+            {
+                id: 5,
+                title: "Business Strategy in the Digital Age",
+                author: "Sarah Johnson & Mark Williams",
+                category: "business",
+                description: "Learn how to adapt traditional business strategies for the digital era. Case studies from successful companies that have thrived in the changing landscape.",
+                pages: 295,
+                rating: 4.4,
+                downloads: 11200,
+                format: "PDF, EPUB, MOBI",
+                size: "2.9 MB",
+                coverColor: "#3a56d4",
+                year: 2021
+            },
+            {
+                id: 6,
+                title: "Fundamentals of Psychology",
+                author: "Dr. Lisa Carter",
+                category: "academic",
+                description: "An accessible textbook covering the core concepts of psychology, perfect for students and anyone interested in understanding human behavior.",
+                pages: 387,
+                rating: 4.7,
+                downloads: 20340,
+                format: "PDF",
+                size: "4.1 MB",
+                coverColor: "#7209b7",
+                year: 2020
+            },
+            {
+                id: 7,
+                title: "Ocean's Whisper",
+                author: "Maya Thompson",
+                category: "fiction",
+                description: "A beautiful literary fiction about a marine biologist who discovers a mysterious underwater phenomenon that challenges everything we know about the ocean.",
+                pages: 278,
+                rating: 4.3,
+                downloads: 8760,
+                format: "PDF, EPUB, MOBI",
+                size: "2.5 MB",
+                coverColor: "#4cc9f0",
+                year: 2022
+            },
+            {
+                id: 8,
+                title: "Mindfulness for Beginners",
+                author: "David Park",
+                category: "selfhelp",
+                description: "A practical guide to incorporating mindfulness into your daily life. Simple exercises and techniques to reduce stress and increase focus.",
+                pages: 192,
+                rating: 4.5,
+                downloads: 16780,
+                format: "PDF, EPUB",
+                size: "1.8 MB",
+                coverColor: "#f72585",
+                year: 2021
+            }
+        ];
+
+        // ===== SIMPLE LOGIN SYSTEM =====
+        let currentUser = localStorage.getItem('freereads_email') || null;
+        let userOrders = JSON.parse(localStorage.getItem('freereads_orders')) || {};
+        
+        // DOM Elements
+        const emailModal = document.getElementById('emailModal');
+        const emailInput = document.getElementById('emailInput');
+        const saveEmailBtn = document.getElementById('saveEmailBtn');
+        const cancelEmailBtn = document.getElementById('cancelEmailBtn');
+        const signInBtn = document.getElementById('signInBtn');
+        const userBadge = document.getElementById('userBadge');
+        const userEmail = document.getElementById('userEmail');
+        const logoutBtn = document.getElementById('logoutBtn');
+        const myOrdersLink = document.getElementById('myOrdersLink');
+        const footerOrdersLink = document.getElementById('footerOrdersLink');
+        const myOrdersSection = document.getElementById('myOrders');
+        const ordersList = document.getElementById('ordersList');
+        const noOrders = document.getElementById('noOrders');
+        const toast = document.getElementById('toast');
+        const toastMessage = document.getElementById('toastMessage');
+        const toastClose = document.getElementById('toastClose');
+        const subscribeBtn = document.getElementById('subscribeBtn');
+        const searchInput = document.getElementById('searchInput');
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const nav = document.querySelector('nav');
+        const loadMoreBtn = document.getElementById('loadMore');
+        const featuredEbooksContainer = document.getElementById('featuredEbooks');
+        const allEbooksContainer = document.getElementById('allEbooks');
+        const ebookModal = document.getElementById('ebookModal');
+        const modalBody = document.getElementById('modalBody');
+        const modalClose = document.getElementById('modalClose');
+        const categoryCards = document.querySelectorAll('.category-card');
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            checkUserStatus();
+            setupEventListeners();
+            renderFeaturedEbooks();
+            renderAllEbooks();
+            setupEbookListeners();
+            
+            // Show orders if on orders page
+            if (window.location.hash === '#my-orders' && currentUser) {
+                showOrdersSection();
+                loadUserOrders();
+            }
+        });
+
+        // Check if user is "logged in"
+        function checkUserStatus() {
+            if (currentUser) {
+                // User is logged in
+                signInBtn.style.display = 'none';
+                userBadge.style.display = 'flex';
+                userEmail.textContent = currentUser;
+                myOrdersLink.style.display = 'block';
+                footerOrdersLink.style.display = 'block';
+            } else {
+                // User is not logged in
+                signInBtn.style.display = 'block';
+                userBadge.style.display = 'none';
+                myOrdersLink.style.display = 'none';
+                footerOrdersLink.style.display = 'none';
+            }
+        }
+
+        // Setup event listeners
+        function setupEventListeners() {
+            // Sign in button
+            signInBtn.addEventListener('click', function() {
+                emailModal.style.display = 'flex';
+                emailInput.focus();
+            });
+            
+            // Save email button
+            saveEmailBtn.addEventListener('click', function() {
+                const email = emailInput.value.trim();
+                
+                if (!validateEmail(email)) {
+                    showToast('Please enter a valid email address', 'error');
+                    return;
+                }
+                
+                // Save email to localStorage
+                localStorage.setItem('freereads_email', email);
+                currentUser = email;
+                
+                // Initialize orders for this email if not exists
+                if (!userOrders[email]) {
+                    userOrders[email] = [];
+                    localStorage.setItem('freereads_orders', JSON.stringify(userOrders));
+                }
+                
+                // Update UI
+                checkUserStatus();
+                
+                // Close modal
+                emailModal.style.display = 'none';
+                emailInput.value = '';
+                
+                // Show welcome message
+                showToast(`Welcome! Your downloads will be tracked for ${email}`, 'success');
+                
+                // Check for pending download
+                const pendingDownload = sessionStorage.getItem('pending_download');
+                if (pendingDownload) {
+                    recordDownload(parseInt(pendingDownload));
+                    sessionStorage.removeItem('pending_download');
+                }
+            });
+            
+            // Cancel email button
+            cancelEmailBtn.addEventListener('click', function() {
+                emailModal.style.display = 'none';
+                emailInput.value = '';
+            });
+            
+            // Logout button
+            logoutBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                localStorage.removeItem('freereads_email');
+                currentUser = null;
+                checkUserStatus();
+                showToast('You have been signed out', 'info');
+                
+                // Hide orders section if visible
+                myOrdersSection.style.display = 'none';
+            });
+            
+            // My Orders link
+            myOrdersLink.addEventListener('click', function(e) {
+                e.preventDefault();
+                if (currentUser) {
+                    showOrdersSection();
+                    loadUserOrders();
+                } else {
+                    emailModal.style.display = 'flex';
+                }
+            });
+            
+            // Close modal when clicking outside
+            emailModal.addEventListener('click', function(e) {
+                if (e.target === emailModal) {
+                    emailModal.style.display = 'none';
+                }
+            });
+            
+            // Toast close button
+            toastClose.addEventListener('click', function() {
+                toast.classList.remove('show');
+            });
+            
+            // Subscribe button (newsletter)
+            subscribeBtn.addEventListener('click', function() {
+                const email = document.getElementById('newsletterEmail').value.trim();
+                
+                if (validateEmail(email)) {
+                    showToast(`Subscribed ${email} to newsletter!`, 'success');
+                    document.getElementById('newsletterEmail').value = '';
+                } else {
+                    showToast('Please enter a valid email', 'error');
+                }
+            });
+            
+            // Mobile menu toggle
+            mobileMenuBtn.addEventListener('click', function() {
+                nav.classList.toggle('active');
+                this.innerHTML = nav.classList.contains('active') 
+                    ? '<i class="fas fa-times"></i>' 
+                    : '<i class="fas fa-bars"></i>';
+            });
+            
+            // Close mobile menu when clicking a link
+            document.querySelectorAll('nav a').forEach(link => {
+                link.addEventListener('click', function() {
+                    nav.classList.remove('active');
+                    mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+                });
+            });
+            
+            // Load more ebooks
+            loadMoreBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Loading...';
+                
+                // Simulate loading more ebooks
+                setTimeout(() => {
+                    // In a real app, this would load from server
+                    showToast('More eBooks would load from server in production', 'info');
+                    this.innerHTML = 'Load More eBooks';
+                }, 1000);
+            });
+            
+            // Search functionality
+            searchInput.addEventListener('input', function() {
+                const searchTerm = this.value.toLowerCase();
+                if (searchTerm.length > 0) {
+                    const filteredEbooks = ebooks.filter(ebook => 
+                        ebook.title.toLowerCase().includes(searchTerm) || 
+                        ebook.author.toLowerCase().includes(searchTerm) ||
+                        ebook.category.toLowerCase().includes(searchTerm)
+                    );
+                    renderAllEbooks(filteredEbooks);
+                } else {
+                    renderAllEbooks();
+                }
+            });
+            
+            // Category filter
+            categoryCards.forEach(card => {
+                card.addEventListener('click', function() {
+                    const category = this.dataset.category;
+                    const filteredEbooks = ebooks.filter(ebook => ebook.category === category);
+                    
+                    // Update active state
+                    categoryCards.forEach(c => c.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    renderAllEbooks(filteredEbooks);
+                    
+                    // Scroll to ebooks section
+                    document.getElementById('all-ebooks').scrollIntoView({ behavior: 'smooth' });
+                });
+            });
+        }
+
+        // ===== EBOOK FUNCTIONS =====
+        function setupEbookListeners() {
+            // Modal close
+            modalClose.addEventListener('click', function() {
+                ebookModal.style.display = 'none';
+            });
+            
+            // Close modal when clicking outside
+            ebookModal.addEventListener('click', function(e) {
+                if (e.target === ebookModal) {
+                    ebookModal.style.display = 'none';
+                }
+            });
+            
+            // Smooth scrolling
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+                    
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        }
+
+        // Render featured ebooks
+        function renderFeaturedEbooks() {
+            featuredEbooksContainer.innerHTML = '';
+            const featured = ebooks.slice(0, 4);
+            
+            featured.forEach(ebook => {
+                const ebookCard = createEbookCard(ebook);
+                featuredEbooksContainer.appendChild(ebookCard);
+            });
+        }
+
+        // Render all ebooks
+        function renderAllEbooks(filteredEbooks = null) {
+            allEbooksContainer.innerHTML = '';
+            const ebooksToRender = filteredEbooks || ebooks;
+            
+            ebooksToRender.forEach(ebook => {
+                const ebookCard = createEbookCard(ebook);
+                allEbooksContainer.appendChild(ebookCard);
+            });
+        }
+
+        // Create ebook card
+        function createEbookCard(ebook) {
+            const card = document.createElement('div');
+            card.className = 'ebook-card';
+            card.dataset.id = ebook.id;
+            card.dataset.category = ebook.category;
+            
+            // Generate star rating
+            let stars = '';
+            for (let i = 1; i <= 5; i++) {
+                if (i <= Math.floor(ebook.rating)) {
+                    stars += '<i class="fas fa-star"></i>';
+                } else if (i === Math.ceil(ebook.rating) && !Number.isInteger(ebook.rating)) {
+                    stars += '<i class="fas fa-star-half-alt"></i>';
+                } else {
+                    stars += '<i class="far fa-star"></i>';
+                }
+            }
+            
+            // Category display names
+            const categoryNames = {
+                fiction: "Fiction",
+                nonfiction: "Non-Fiction",
+                academic: "Academic",
+                business: "Business",
+                technology: "Technology",
+                selfhelp: "Self-Help"
+            };
+            
+            card.innerHTML = `
+                <div class="ebook-cover" style="background-color: ${ebook.coverColor};">
+                    <div style="height: 100%; display: flex; align-items: center; justify-content: center; color: white; font-size: 2.5rem;">
+                        <i class="fas fa-book"></i>
+                    </div>
+                </div>
+                <div class="ebook-info">
+                    <h3 class="ebook-title">${ebook.title}</h3>
+                    <p class="ebook-author">by ${ebook.author}</p>
+                    <div class="ebook-meta">
+                        <span class="ebook-category">${categoryNames[ebook.category]}</span>
+                        <span class="rating">${stars} ${ebook.rating}</span>
+                    </div>
+                    <div class="ebook-actions">
+                        <span><i class="fas fa-download"></i> ${ebook.downloads.toLocaleString()}</span>
+                        <button class="btn btn-small btn-outline view-details">View Details</button>
+                    </div>
+                </div>
+            `;
+            
+            // Add event listener to view details button
+            card.querySelector('.view-details').addEventListener('click', function(e) {
+                e.stopPropagation();
+                showEbookDetails(ebook.id);
+            });
+            
+            // Also make the whole card clickable
+            card.addEventListener('click', function() {
+                showEbookDetails(ebook.id);
+            });
+            
+            return card;
+        }
+
+        // Show ebook details in modal
+        function showEbookDetails(ebookId) {
+            const ebook = ebooks.find(e => e.id === ebookId);
+            if (!ebook) return;
+            
+            // Category display names
+            const categoryNames = {
+                fiction: "Fiction",
+                nonfiction: "Non-Fiction",
+                academic: "Academic",
+                business: "Business",
+                technology: "Technology",
+                selfhelp: "Self-Help"
+            };
+            
+            // Generate star rating
+            let stars = '';
+            for (let i = 1; i <= 5; i++) {
+                if (i <= Math.floor(ebook.rating)) {
+                    stars += '<i class="fas fa-star"></i>';
+                } else if (i === Math.ceil(ebook.rating) && !Number.isInteger(ebook.rating)) {
+                    stars += '<i class="fas fa-star-half-alt"></i>';
+                } else {
+                    stars += '<i class="far fa-star"></i>';
+                }
+            }
+            
+            modalBody.innerHTML = `
+                <div class="modal-ebook-details">
+                    <div class="modal-cover">
+                        <div style="background-color: ${ebook.coverColor}; height: 300px; border-radius: var(--border-radius); display: flex; align-items: center; justify-content: center; color: white; font-size: 4rem;">
+                            <i class="fas fa-book"></i>
+                        </div>
+                    </div>
+                    <div class="modal-info">
+                        <h2>${ebook.title}</h2>
+                        <p class="ebook-author" style="font-size: 1.2rem; margin-bottom: 20px;">by ${ebook.author}</p>
+                        
+                        <div style="display: flex; gap: 10px; margin-bottom: 20px;">
+                            <span class="ebook-category">${categoryNames[ebook.category]}</span>
+                            <span class="rating">${stars} ${ebook.rating}</span>
+                        </div>
+                        
+                        <p>${ebook.description}</p>
+                        
+                        <div style="background-color: var(--light-gray); padding: 20px; border-radius: var(--border-radius); margin: 25px 0;">
+                            <h4 style="margin-bottom: 15px;">Book Details</h4>
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                                <div><strong>Pages:</strong> ${ebook.pages}</div>
+                                <div><strong>File Size:</strong> ${ebook.size}</div>
+                                <div><strong>Published:</strong> ${ebook.year}</div>
+                                <div><strong>Downloads:</strong> ${ebook.downloads.toLocaleString()}</div>
+                                <div><strong>Format:</strong> ${ebook.format}</div>
+                                <div><strong>Category:</strong> ${categoryNames[ebook.category]}</div>
+                            </div>
+                        </div>
+                        
+                        <button class="btn modal-download-btn" data-ebook-id="${ebook.id}">
+                            <i class="fas fa-download"></i> Download eBook for Free
+                        </button>
+                        <p style="text-align: center; margin-top: 10px; color: var(--gray); font-size: 0.9rem;">
+                            No registration required. Download immediately.
+                        </p>
+                    </div>
+                </div>
+            `;
+            
+            // Add event listener to download button
+            modalBody.querySelector('.modal-download-btn').addEventListener('click', function() {
+                const ebookId = parseInt(this.dataset.ebookId);
+                const ebook = ebooks.find(e => e.id === ebookId);
+                
+                if (ebook) {
+                    // Record the download
+                    const downloaded = recordDownload(ebookId);
+                    
+                    if (downloaded) {
+                        // Update download count
+                        ebook.downloads += 1;
+                        
+                        // Show success message
+                        showToast(`"${ebook.title}" downloaded successfully!`, 'success');
+                        
+                        // Close modal after delay
+                        setTimeout(() => {
+                            ebookModal.style.display = 'none';
+                        }, 1500);
+                    }
+                }
+            });
+            
+            ebookModal.style.display = 'flex';
+        }
+
+        // ===== ORDER TRACKING FUNCTIONS =====
+        function recordDownload(ebookId) {
+            if (!currentUser) {
+                // Show email modal if not logged in
+                emailModal.style.display = 'flex';
+                // Store the ebook ID to add after email is entered
+                sessionStorage.setItem('pending_download', ebookId);
+                return false;
+            }
+            
+            // Add order to user's list
+            const order = {
+                id: Date.now(), // Unique order ID
+                ebookId: ebookId,
+                date: new Date().toISOString(),
+                status: 'downloaded'
+            };
+            
+            // Add to user's orders
+            if (!userOrders[currentUser]) {
+                userOrders[currentUser] = [];
+            }
+            
+            // Check if already downloaded (optional)
+            const alreadyDownloaded = userOrders[currentUser].some(o => o.ebookId === ebookId);
+            
+            if (!alreadyDownloaded) {
+                userOrders[currentUser].push(order);
+                localStorage.setItem('freereads_orders', JSON.stringify(userOrders));
+                return true;
+            }
+            
+            return false;
+        }
+
+        // Load and display user's orders
+        function loadUserOrders() {
+            if (!currentUser || !userOrders[currentUser]) {
+                ordersList.innerHTML = '';
+                noOrders.style.display = 'block';
+                return;
+            }
+            
+            const orders = userOrders[currentUser];
+            
+            if (orders.length === 0) {
+                ordersList.innerHTML = '';
+                noOrders.style.display = 'block';
+                return;
+            }
+            
+            // Sort by date (newest first)
+            orders.sort((a, b) => new Date(b.date) - new Date(a.date));
+            
+            // Display orders
+            let html = '';
+            orders.forEach(order => {
+                const ebook = ebooks.find(b => b.id === order.ebookId);
+                if (ebook) {
+                    const date = new Date(order.date).toLocaleDateString('en-US', {
+                        year: 'numeric',
+                        month: 'short',
+                        day: 'numeric'
+                    });
+                    
+                    html += `
+                        <div class="order-item">
+                            <div class="order-cover" style="background-color: ${ebook.coverColor};">
+                                <i class="fas fa-book"></i>
+                            </div>
+                            <div class="order-info">
+                                <div class="order-title">${ebook.title}</div>
+                                <div class="order-meta">
+                                    <span>by ${ebook.author}</span>
+                                    <span class="order-date">
+                                        <i class="far fa-calendar"></i> ${date}
+                                    </span>
+                                    <span>${ebook.format}</span>
+                                </div>
+                            </div>
+                            <button class="btn btn-small" onclick="downloadAgain(${ebook.id})">
+                                <i class="fas fa-download"></i> Download Again
+                            </button>
+                        </div>
+                    `;
+                }
+            });
+            
+            ordersList.innerHTML = html;
+            noOrders.style.display = 'none';
+        }
+
+        // Download again function
+        function downloadAgain(ebookId) {
+            const ebook = ebooks.find(b => b.id === ebookId);
+            if (ebook) {
+                // Show ebook details modal
+                showEbookDetails(ebookId);
+                showToast(`Opening "${ebook.title}" for download`, 'info');
+            }
+        }
+
+        // Show orders section
+        function showOrdersSection() {
+            myOrdersSection.style.display = 'block';
+            myOrdersSection.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Show toast notification
+        function showToast(message, type = 'info') {
+            toastMessage.textContent = message;
+            toast.className = 'toast';
+            toast.classList.add('show');
+            
+            // Add type class
+            if (type === 'success') toast.classList.add('toast-success');
+            else if (type === 'error') toast.classList.add('toast-error');
+            else toast.classList.add('toast-info');
+            
+            // Auto hide after 4 seconds
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 4000);
+        }
+
+        // Email validation
+        function validateEmail(email) {
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(email);
+        }
+    </script>
+</body>
+</html>
